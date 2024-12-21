@@ -1,4 +1,4 @@
-# Домашнее задание к занятию 5. «Практическое применение Docker» Мальник
+# Домашнее задание к занятию 5. «Практическое применение Docker» Мельник Юрий Александрович
 
 ### Инструкция к выполнению
 
@@ -27,6 +27,10 @@ See 'snap info docker' for additional versions.
 ###  **Своё решение к задачам оформите в вашем GitHub репозитории!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!**
 
 ---
+# Решение 0
+Произведено удаление "docker-compose" 
+![Скриншот 11](https://github.com/ysatii/hw5-docker/blob/main/img/docker1.jpg) 
+
 
 ## Задача 1
 1. Сделайте в своем github пространстве fork [репозитория](https://github.com/netology-code/shvirtd-example-python/blob/main/README.md).
