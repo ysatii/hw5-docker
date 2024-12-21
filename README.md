@@ -44,8 +44,8 @@ See 'snap info docker' for additional versions.
 !!! В процессе последующего выполнения ДЗ НЕ изменяйте содержимое файлов в fork-репозитории! Ваша задача ДОБАВИТЬ 5 файлов: ```Dockerfile.python```, ```compose.yaml```, ```.gitignore```, ```.dockerignore```,```bash-скрипт```. Если вам понадобилось внести иные изменения в проект - вы что-то делаете неверно!
 ---
 ## решение 1
-1. Сделаем fork репозитория!
-[Скриншот 2](https://github.com/ysatii/hw5-docker/blob/main/img/docker2.jpg) 
+1. Сделаем fork репозитория
+![Скриншот 2](https://github.com/ysatii/hw5-docker/blob/main/img/docker2.jpg) 
 
 ## Задача 2 (*)
 1. Создайте в yandex cloud container registry с именем "test" с помощью "yc tool" . [Инструкция](https://cloud.yandex.ru/ru/docs/container-registry/quickstart/?from=int-console-help)
