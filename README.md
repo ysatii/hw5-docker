@@ -233,6 +233,73 @@ SELECT * from requests LIMIT 10;
 5. (Необязательная часть) Дополнительно настройте remote ssh context к вашему серверу. Отобразите список контекстов и результат удаленного выполнения ```docker ps -a```
 6. В качестве ответа повторите  sql-запрос и приложите скриншот с данного сервера, bash-скрипт и ссылку на fork-репозиторий.
 
+
+## решение 4
+1. подподготовим виртуальную машину на яндекс облаке.
+  ![Скриншот 12](https://github.com/ysatii/hw5-docker/blob/main/img/docker12.jpg).
+
+2. Установим досккер с помощию скрипта  
+```sh
+#!/bin/bash
+
+# Проверяем, выполняется ли скрипт с правами root
+if [ "$EUID" -ne 0 ]; then
+  echo "Пожалуйста, запустите скрипт с правами root (sudo)."
+  exit 1
+fi
+
+# Обновляем систему
+echo "Обновляем списки пакетов..."
+apt-get update -y
+
+# Устанавливаем необходимые пакеты
+echo "Устанавливаем необходимые зависимости..."
+apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+# Добавляем GPG-ключ Docker
+echo "Добавляем ключ Docker GPG..."
+mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+# Добавляем репозиторий Docker
+echo "Добавляем Docker-репозиторий..."
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') \
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Обновляем списки пакетов
+echo "Обновляем списки пакетов (после добавления репозитория)..."
+apt-get update -y
+
+# Устанавливаем Docker
+echo "Устанавливаем Docker CE, CLI и контейнерный runtime..."
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Проверяем установку
+echo "Проверяем версию Docker..."
+docker --version
+
+# Устанавливаем автозапуск Docker
+echo "Включаем автозапуск Docker..."
+systemctl enable docker
+systemctl start docker
+
+echo "Установка Docker завершена!"
+```
+
+ ![Скриншот 13](https://github.com/ysatii/hw5-docker/blob/main/img/docker13.jpg)
+ ![Скриншот 14](https://github.com/ysatii/hw5-docker/blob/main/img/docker14.jpg)
+
+5. выполнение  команды ```docker ps -a```
+ ![Скриншот 15](https://github.com/ysatii/hw5-docker/blob/main/img/docker15.jpg)
+
+6. ссылка на fork репозиторий https://github.com/ysatii/shvirtd-example-python
+ ![Скриншот 16](https://github.com/ysatii/hw5-docker/blob/main/img/docker16.jpg)
+
 ## Задача 5 (*)
 1. Напишите и задеплойте на вашу облачную ВМ bash скрипт, который произведет резервное копирование БД mysql в директорию "/opt/backup" с помощью запуска в сети "backend" контейнера из образа ```schnitzler/mysqldump``` при помощи ```docker run ...``` команды. Подсказка: "документация образа."
 2. Протестируйте ручной запуск
