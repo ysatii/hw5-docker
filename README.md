@@ -339,6 +339,22 @@ cp extracted_layers/bin/terraform ~/terraform
 Добейтесь аналогичного результата, используя docker cp.  
 Предоставьте скриншоты  действий .
 
+## Ответ 6.1
+Скачиваем образ
+```
+docker pull hashicorp/terraform:latest
+```
+
+создаем контейнер 
+```
+docker run -d --name terraform-container hashicorp/terraform:latest tail -f /dev/null
+```
+копируем файл используя **docker cp**
+```
+docker cp terraform-container:/bin/terraform ~/terraform
+```
+
+
 ## Задача 6.2 (**)
 Предложите способ извлечь файл из контейнера, используя только команду docker build и любой Dockerfile.  
 Предоставьте скриншоты  действий .
