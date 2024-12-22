@@ -147,6 +147,39 @@ docker build -f Dockerfile.python -t dock .
 4. Просканируйте образ на уязвимости.
 5. В качестве ответа приложите отчет сканирования.
 
+## решение 2
+1. создаем контейнер в yandex cloud container registry
+```
+yc container registry create --name test
+```
+
+сконфигурируем docker для использования 
+```
+yc container registry configure-docker
+```
+
+проверем что все сконфигурировано
+```
+/home/lamer/.docker/config.json
+```
+
+тегируем образ
+```
+docker tag dock cr.yandex/crpfc95k6pu9pkbp828q/dock:latest
+```
+
+загрузим  образ в реестр
+```
+docker push cr.yandex/crpfc95k6pu9pkbp828q/dock:latest
+```
+![Скриншот 6](https://github.com/ysatii/hw5-docker/blob/main/img/docker6.jpg) 
+
+перейдем в яндекс облако и провизведем сканирование на наличие уязвимостей
+
+![Скриншот 4](https://github.com/ysatii/hw5-docker/blob/main/img/docker4.jpg) 
+![Скриншот 5](https://github.com/ysatii/hw5-docker/blob/main/img/docker5.jpg) 
+![Скриншот 7](https://github.com/ysatii/hw5-docker/blob/main/img/docker7.jpg) 
+
 ## Задача 3
 1. Изучите файл "proxy.yaml"
 2. Создайте в репозитории с проектом файл ```compose.yaml```. С помощью директивы "include" подключите к нему файл "proxy.yaml".
