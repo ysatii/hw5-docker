@@ -310,6 +310,31 @@ echo "Установка Docker завершена!"
 Скачайте docker образ ```hashicorp/terraform:latest``` и скопируйте бинарный файл ```/bin/terraform``` на свою локальную машину, используя dive и docker save.
 Предоставьте скриншоты  действий .
 
+## ответ 6
+Сохраните образ Docker в файл
+```
+docker save -o terraform.tar hashicorp/terraform:latest
+```
+Распакуйте содержимое сохранённого образа:
+```
+mkdir terraform_image
+tar -xf terraform.tar -C terraform_image
+```
+
+найдем файл /bin/terraform
+```
+find extracted_layers -type f -executable -name "*terraform*"
+```
+ответ extracted_layers/bin/terraform
+
+скопируем файл себе в домашнюю директорию
+```
+cp extracted_layers/bin/terraform ~/terraform
+```
+ ![Скриншот 17](https://github.com/ysatii/hw5-docker/blob/main/img/docker17.jpg)
+
+
+
 ## Задача 6.1
 Добейтесь аналогичного результата, используя docker cp.  
 Предоставьте скриншоты  действий .
