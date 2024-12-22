@@ -190,11 +190,40 @@ docker push cr.yandex/crpfc95k6pu9pkbp828q/dock:latest
 
 - ```db```. image=mysql:8. Контейнер должен работать в bridge-сети с названием ```backend``` и иметь фиксированный ipv4-адрес ```172.20.0.10```. Явно перезапуск сервиса в случае ошибок. Передайте необходимые ENV-переменные для создания: пароля root пользователя, создания базы данных, пользователя и пароля для web-приложения.Обязательно используйте уже существующий .env file для назначения секретных ENV-переменных!
 
-2. Запустите проект локально с помощью docker compose , добейтесь его стабильной работы: команда ```curl -L http://127.0.0.1:8090``` должна возвращать в качестве ответа время и локальный IP-адрес. Если сервисы не стартуют воспользуйтесь командами: ```docker ps -a ``` и ```docker logs <container_name>``` . Если вместо IP-адреса вы получаете ```NULL``` --убедитесь, что вы шлете запрос на порт ```8090```, а не 5000.
+4. Запустите проект локально с помощью docker compose , добейтесь его стабильной работы: команда ```curl -L http://127.0.0.1:8090``` должна возвращать в качестве ответа время и локальный IP-адрес. Если сервисы не стартуют воспользуйтесь командами: ```docker ps -a ``` и ```docker logs <container_name>``` . Если вместо IP-адреса вы получаете ```NULL``` --убедитесь, что вы шлете запрос на порт ```8090```, а не 5000.
 
 5. Подключитесь к БД mysql с помощью команды ```docker exec -ti <имя_контейнера> mysql -uroot -p<пароль root-пользователя>```(обратите внимание что между ключем -u и логином root нет пробела. это важно!!! тоже самое с паролем) . Введите последовательно команды (не забываем в конце символ ; ): ```show databases; use <имя вашей базы данных(по-умолчанию example)>; show tables; SELECT * from requests LIMIT 10;```.
 
 6. Остановите проект. В качестве ответа приложите скриншот sql-запроса.
+
+
+3. рабочий файл находиться в репозитории [fork репозитория shvirtd-example-python](https://github.com/ysatii/shvirtd-example-python.git)
+4. ![Скриншот 8](https://github.com/ysatii/hw5-docker/blob/main/img/docker8.jpg)   
+   ![Скриншот 9](https://github.com/ysatii/hw5-docker/blob/main/img/docker9.jpg) 
+5. Подключитесь к БД mysql 
+
+```
+docker exec -it shvirtd-example-python-db-1 bash
+```
+
+```
+mysql -uroot -p
+```
+
+```
+show databases;
+```
+
+```
+show tables;
+```
+
+```
+SELECT * from requests LIMIT 10;
+```
+
+  ![Скриншот 10](https://github.com/ysatii/hw5-docker/blob/main/img/docker10.jpg)   
+  ![Скриншот 11](https://github.com/ysatii/hw5-docker/blob/main/img/docker11.jpg) 
 
 ## Задача 4
 1. Запустите в Yandex Cloud ВМ (вам хватит 2 Гб Ram).
