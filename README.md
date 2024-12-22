@@ -47,6 +47,99 @@ See 'snap info docker' for additional versions.
 1. Сделаем fork репозитория
 ![Скриншот 2](https://github.com/ysatii/hw5-docker/blob/main/img/docker2.jpg) 
 
+3. листинг  Dockerfile.python
+```
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+COPY main.py ./
+CMD ["python", "main.py"]
+```
+
+листинг .dockerignore
+```
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info
+*.egg
+
+# Общие папки сборки
+dist/
+build/
+bin/
+obj/
+lib/
+
+# Переменные окружения
+.env
+.env.local
+
+# Конфигурации IDE и редакторов
+.idea/
+.vscode/
+*.iml
+*.suo
+*.user
+*.db
+*.sln
+
+# Локальные настройки
+*.local
+
+# Python кэш
+*.pyo
+__pycache__/
+
+# Docker кэш
+docker-compose.override.yml
+```
+
+листинг .gitignore
+```
+# Переменные окружения
+.env
+.env.local
+.env.*.local
+
+# Конфигурации редакторов
+.idea/
+.vscode/
+*.iml
+
+# Локальные настройки
+*.local
+
+# Общие временные файлы
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Python кэш
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+```
+
+команда для сборки образа 
+```
+docker build -f Dockerfile.python -t dock .
+```
+![Скриншот 3](https://github.com/ysatii/hw5-docker/blob/main/img/docker3.jpg) 
+
 ## Задача 2 (*)
 1. Создайте в yandex cloud container registry с именем "test" с помощью "yc tool" . [Инструкция](https://cloud.yandex.ru/ru/docs/container-registry/quickstart/?from=int-console-help)
 2. Настройте аутентификацию вашего локального docker в yandex container registry.
